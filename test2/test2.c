@@ -1,5 +1,5 @@
-#incldue<stdio.h>
+#include<stdio.h>
 int main(){
-pritnf("hello git");
+printf("hello git");
 return 0;
 }
