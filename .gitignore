@@ -1,5 +1,37 @@
-# Visual Studio 临时文件
-.vs/
-*.user
-*.suo
-*.cache
+# --------------------
+# C / C++ 通用
+# --------------------
+
+# 编译产物
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+
+# 调试 & 编辑器
+*.pdb
+*.idb
+*.ilk
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# VS / CLion / VSCode
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+
+# 临时文件
+*~
+
+# --------------------
+# 操作系统
+# --------------------
+.DS_Store
+Thumbs.db
