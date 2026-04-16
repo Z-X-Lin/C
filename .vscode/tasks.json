@@ -2,34 +2,30 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "编译运行全部",
             "type": "shell",
-            "command": "gcc",
-            "args": [
-                "-g",
-                "core/*.c",
-                "data/*.c",
-                "function/*.c",
-                "main.c",
-                "-o",
-                "program.exe"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": {
-                "owner": "c",
-                "fileLocation": "absolute",
-                "pattern": {
-                    "regexp": "^(.*?):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                }
-            }
+            "command": "gcc core/*.c data/*.c function/*.c main.c -o 程序.exe && ./程序.exe",
+            "group": { "kind": "build", "isDefault": true }
+        },
+        {
+            "label": "测试A的模块",
+            "type": "shell", 
+            "command": "gcc function/*.c -o 测试A.exe && ./测试A.exe"
+        },
+        {
+            "label": "测试B的模块",
+            "type": "shell",
+            "command": "gcc data/*.c -o 测试B.exe && ./测试B.exe"
+        },
+        {
+            "label": "测试C的模块", 
+            "type": "shell",
+            "command": "gcc core/*.c -o 测试C.exe && ./测试C.exe"
+        },
+        {
+            "label": "只编译不运行",
+            "type": "shell",
+            "command": "gcc core/*.c data/*.c function/*.c main.c -o 程序.exe"
         }
     ]
 }
