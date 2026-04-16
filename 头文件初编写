@@ -50,7 +50,7 @@ typedef struct{
     char title[max_title];//标题
     int number;//人数
     char genderlimit;//性别要求
-    time_t stat_time;//开始时间
+    time_t start_time;//开始时间
     time_t end_time;//截止时间
     char contact[max_contact];//联系方式
     double budget;//预算
