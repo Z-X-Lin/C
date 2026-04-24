@@ -2,30 +2,29 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "编译运行全部",
+            "label": "【A】运行 join 模块",
             "type": "shell",
-            "command": "gcc core/*.c data/*.c function/*.c main.c -o 程序.exe && ./程序.exe",
-            "group": { "kind": "build", "isDefault": true }
+            "command": "gcc -DTEST_JOIN_MODULE function/join/join.c -o test_join.exe && test_join.exe"
         },
         {
-            "label": "测试A的模块",
-            "type": "shell", 
-            "command": "gcc function/*.c -o 测试A.exe && ./测试A.exe"
+            "label": "【B】运行 publish 模块",
+            "type": "shell",
+            "command": "gcc -DTEST_PUBLISH_MODULE function/publish/publish.c -o test_publish.exe && test_publish.exe"
         },
         {
-            "label": "测试B的模块",
+            "label": "【C】运行 comment 模块",
             "type": "shell",
-            "command": "gcc data/*.c -o 测试B.exe && ./测试B.exe"
+            "command": "gcc -DTEST_COMMENT_MODULE function/comment/comment.c -o test_comment.exe && test_comment.exe"
         },
         {
-            "label": "测试C的模块", 
+            "label": "编译整个项目",
             "type": "shell",
-            "command": "gcc core/*.c -o 测试C.exe && ./测试C.exe"
+            "command": "gcc core/*.c data/*.c function/*/*.c main.c -o main.exe"
         },
         {
-            "label": "只编译不运行",
+            "label": "运行整个项目",
             "type": "shell",
-            "command": "gcc core/*.c data/*.c function/*.c main.c -o 程序.exe"
+            "command": "main.exe"
         }
     ]
 }
