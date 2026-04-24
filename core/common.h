@@ -31,7 +31,7 @@ typedef enum{
 
 //帖子状态
 typedef enum{
-    STSTUS_ACTIVE=1,//进行中
+    STATUS_ACTIVE=1,//进行中
     STATUS_FULL,//已满员
     STATUS_EXPIED,//已过期
     STATUS_HIDDEN//隐藏
@@ -46,9 +46,12 @@ typedef struct{
 
 //帖子结构体
 typedef struct{
+    int postId;//帖子ID
+    char publisherId[max_ID];//发布者学号
     posttype type;//类型
     char title[max_title];//标题
-    int number;//人数
+    int max_number;//人数
+    int current_number;//当前人数
     char genderlimit;//性别要求
     time_t start_time;//开始时间
     time_t end_time;//截止时间
