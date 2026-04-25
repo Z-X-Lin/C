@@ -98,6 +98,10 @@ extern application applications[];//申请记录数组
 #endif*/
 
 //豆包版
+// common.h 第一行添加
+#define __USE_MINGW_ANSI_STDIO 1
+#include <stdarg.h> // 补充va_list定义
+
 #ifndef COMMON_H
 #define COMMON_H
 

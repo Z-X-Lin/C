@@ -2,29 +2,56 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "【A】运行 join 模块",
+            "label": "build",
             "type": "shell",
-            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_JOIN_MODULE function/join/join.c -o test_join.exe && test_join.exe"
+            "command": "D:\\MinGW\\bin\\gcc.exe",
+            "args": [
+                "-g",
+                "main.c",
+                "common.c",
+                "user.c",
+                "post.c",
+                "join.c",
+                "-o",
+                "${workspaceFolder}\\campus_partner.exe",
+                "-Wall",
+                "-Wextra"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "编译校园搭子系统"
         },
         {
-            "label": "【B】运行 publish 模块",
+            "label": "run",
             "type": "shell",
-            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_PUBLISH_MODULE function/publish/publish.c -o test_publish.exe && test_publish.exe"
+            "command": "${workspaceFolder}\\campus_partner.exe",
+            "dependsOn": "build",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "detail": "运行校园搭子系统"
         },
         {
-            "label": "【C】运行 comment 模块",
-            "type": "shell",
-            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_COMMENT_MODULE function/comment/comment.c -o test_comment.exe && test_comment.exe"
-        },
-        {
-            "label": "编译整个项目",
-            "type": "shell",
-            "command": "gcc -I. -Icore -Idata -Ifunction core/*.c data/*.c function/*/*.c main.c -o main.exe"
-        },
-        {
-            "label": "运行整个项目",
-            "type": "shell",
-            "command": "main.exe"
+            "label": "build & run",
+            "dependsOn": [
+                "build",
+                "run"
+            ],
+            "problemMatcher": [],
+            "detail": "一键编译运行"
         },
         {
             "type": "cppbuild",
@@ -35,21 +62,29 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-I${workspaceFolder}",
-                "-I${workspaceFolder}/core",
-                "-I${workspaceFolder}/data",
-                "-I${workspaceFolder}/function"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": [
+                "$gcc"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "detail": "调试器生成的任务。"
         }
-    ]
+    ],
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "cmd.exe",
+                "args": [
+                    "/c"
+                ]
+            }
+        }
+    }
 }

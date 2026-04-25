@@ -319,7 +319,7 @@ int main() {
 
 
 
-/豆包版
+//豆包版
 #include "join.h"
 
 void joinApply() {
