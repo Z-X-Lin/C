@@ -1,7 +1,7 @@
 #ifndef JOIN_H
 #define JOIN_H
 //防止被重复包含
-#include "common.h"//包含所需头文件
+#include"common.h"//包含所需头文件
 
 // Mock：测试模式开关 + 依赖替身
 #ifdef TEST_JOIN_MODULE  
