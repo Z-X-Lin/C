@@ -1,3 +1,4 @@
+/*
 #ifndef COMMON_H
 #define COMMON_H
 //1.2两行是头文件固定模板方案，编译头文件必须使用该定义，用处是防止头文件被重复包含，导致编译错误
@@ -93,5 +94,55 @@ void mainmenu(user *currentuser);//主菜单函数定义，这个我还没弄懂
 extern user currentUser;//意思：保存【当前已经登录的那个用户】的信息,也就是说这个已经登录过的用户信息在任何模块都可以被调用
 extern int applicationCount;//申请记录数量
 extern application applications[];//申请记录数组
+
+#endif*/
+
+//豆包版
+#ifndef COMMON_H
+#define COMMON_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_USER 100
+#define MAX_PARTNER 100
+#define MAX_JOIN 100
+
+// 全局结构体
+typedef struct {
+    int id;
+    char username[20];
+    char pwd[20];
+} User;
+
+typedef struct {
+    int id;
+    int userId;
+    char title[30];
+    char type[20];
+    char content[50];
+    int status; // 0待匹配 1已匹配
+} Partner;
+
+typedef struct {
+    int id;
+    int partnerId;
+    int applyUserId;
+} Join;
+
+// 全局变量（外部调用）
+extern User users[];
+extern Partner partners[];
+extern Join joins[];
+
+extern int userCnt;
+extern int partnerCnt;
+extern int joinCnt;
+extern int nowUserId;
+
+// 公共函数
+void clear();
+void pause();
 
 #endif

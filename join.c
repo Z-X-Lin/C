@@ -1,4 +1,5 @@
-#include "join.h"
+
+/*#include "join.h"
 #include "../function/post/post.h"
 
 // 申请记录数组 - 改为在common.c中定义
@@ -314,4 +315,56 @@ int main() {
     printf("\n===== join模块测试完成 =====\n");
     return 0;
 }
-#endif
+#endif*/
+
+
+
+/豆包版
+#include "join.h"
+
+void joinApply() {
+    clear();
+    printf("===== 申请搭子 =====\n");
+    int pid;
+    printf("输入搭子ID：");
+    scanf("%d", &pid);
+
+    for (int i = 0; i < partnerCnt; i++) {
+        if (partners[i].id == pid) {
+            if (partners[i].userId == nowUserId) {
+                printf("不能申请自己的搭子！\n");
+                pause();
+                return;
+            }
+
+            Join j;
+            j.id = joinCnt + 1;
+            j.partnerId = pid;
+            j.applyUserId = nowUserId;
+            joins[joinCnt++] = j;
+
+            printf("申请成功！\n");
+            pause();
+            return;
+        }
+    }
+
+    printf("搭子不存在！\n");
+    pause();
+}
+
+void joinMyList() {
+    clear();
+    printf("===== 我的申请 =====\n");
+    int flag = 0;
+
+    for (int i = 0; i < joinCnt; i++) {
+        if (joins[i].applyUserId == nowUserId) {
+            printf("已申请搭子ID：%d\n", joins[i].partnerId);
+            flag = 1;
+        }
+    }
+
+    if (!flag) printf("暂无申请\n");
+    pause();
+}

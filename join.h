@@ -1,3 +1,4 @@
+/*
 #ifndef JOIN_H
 #define JOIN_H
 //防止被重复包含
@@ -21,5 +22,17 @@ void checkAndUpdateStatus(int postId);//更新状态
 void loadApplication(void);//加载
 void saveApplications(void);//保存
 void initJoinModule(void);//初始化参与模块
+
+#endif*/
+
+
+//豆包版
+#ifndef JOIN_H
+#define JOIN_H
+
+#include "common.h"
+
+void joinApply();
+void joinMyList();
 
 #endif

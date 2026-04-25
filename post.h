@@ -1,3 +1,4 @@
+/*
 #ifndef POST_H
 #define POST_H
 
@@ -17,5 +18,18 @@ int getNextPostId(void);//获取下一个可用的帖子ID
 void initPostModule(void);//初始化子模块
 int getTypeByName(char *typeName);//根据类型名称获取类型枚举值
 char* getTypeNameByValue(int type);//根据类型枚举值获取类型名称
+
+#endif*/
+
+
+
+//豆包版
+#ifndef POST_H
+#define POST_H
+
+#include "common.h"
+
+void postAdd();
+void postListAll();
 
 #endif

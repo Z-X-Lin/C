@@ -1,3 +1,4 @@
+/*
 #include "common.h"
 
 // 全局当前登录用户
@@ -163,4 +164,27 @@ void mainmenu(user *currentuser) {
                 printf("无效选择！\n");
         }
     }
+}*/
+
+
+//豆包版
+#include "common.h"
+
+User users[MAX_USER];
+Partner partners[MAX_PARTNER];
+Join joins[MAX_JOIN];
+
+int userCnt = 0;
+int partnerCnt = 0;
+int joinCnt = 0;
+int nowUserId = -1;
+
+void clear() {
+    system("cls");
+}
+
+void pause() {
+    printf("\n按回车继续...");
+    getchar();
+    getchar();
 }

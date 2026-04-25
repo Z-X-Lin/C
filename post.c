@@ -1,3 +1,4 @@
+/*
 #include "post.h"
 
 // 帖子数组
@@ -221,4 +222,45 @@ void sortPostsByTime(post **posts, int count) {
             }
         }
     }
+}
+*/
+
+
+//豆包版
+#include "post.h"
+
+void postAdd() {
+    clear();
+    printf("===== 发布搭子 =====\n");
+
+    Partner p;
+    p.id = partnerCnt + 1;
+    p.userId = nowUserId;
+    p.status = 0;
+
+    printf("标题：");
+    scanf("%s", p.title);
+    printf("类型（学习/运动/干饭）：");
+    scanf("%s", p.type);
+    printf("描述：");
+    scanf("%s", p.content);
+
+    partners[partnerCnt++] = p;
+    printf("发布成功！\n");
+    pause();
+}
+
+void postListAll() {
+    clear();
+    printf("===== 所有搭子 =====\n");
+    for (int i = 0; i < partnerCnt; i++) {
+        printf("ID:%d | 发布者:%d | %s | %s | %s | %s\n",
+               partners[i].id,
+               partners[i].userId,
+               partners[i].title,
+               partners[i].type,
+               partners[i].content,
+               partners[i].status == 0 ? "可申请" : "已匹配");
+    }
+    pause();
 }

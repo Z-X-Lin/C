@@ -1,3 +1,4 @@
+/*
 #include "core/common.h"
 #include "function/post/post.h"
 #include "function/join/join.h"
@@ -279,5 +280,72 @@ int main(void) {
         }
     }
     
+    return 0;
+}*/
+
+
+//豆包版
+#include "common.h"
+#include "user.h"
+#include "post.h"
+#include "join.h"
+
+void userMenu() {
+    int choice;
+    while (1) {
+        clear();
+        printf("===== 校园搭子系统 =====\n");
+        printf("当前登录用户：%d\n", nowUserId);
+        printf("1. 发布搭子\n");
+        printf("2. 查看所有搭子\n");
+        printf("3. 申请搭子\n");
+        printf("4. 查看我的申请\n");
+        printf("0. 退出登录\n");
+        printf("请选择：");
+        scanf("%d", &choice);
+
+        if (choice == 0) break;
+
+        switch (choice) {
+            case 1: postAdd(); break;
+            case 2: postListAll(); break;
+            case 3: joinApply(); break;
+            case 4: joinMyList(); break;
+            default: printf("输入错误！\n"); pause();
+        }
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        clear();
+        printf("===== 主菜单 =====\n");
+        printf("1. 注册\n");
+        printf("2. 登录\n");
+        printf("0. 退出\n");
+        printf("请选择：");
+        scanf("%d", &choice);
+
+        if (choice == 0) break;
+
+        switch (choice) {
+            case 1:
+                userRegister();
+                break;
+            case 2:
+                nowUserId = userLogin();
+                if (nowUserId != -1) {
+                    userMenu();
+                }
+                break;
+            default:
+                printf("输入错误！\n");
+                pause();
+        }
+    }
+
+    clear();
+    printf("程序已退出\n");
     return 0;
 }
