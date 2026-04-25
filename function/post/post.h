@@ -1,7 +1,7 @@
 #ifndef POST_H
 #define POST_H
 
-#include"common.h"
+#include "common.h"
 
 // ========== 帖子模块函数声明 ==========
 

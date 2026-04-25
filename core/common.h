@@ -16,6 +16,7 @@
 #define max_contact 30//最大联系方式
 #define max_remark 200//发布者最大备注长度
 #define ex_max_remark 200//申请者最大备注长度
+#define MAX_APPLICATIONS 100
 
 //所有结构体定义（我仅举出我所认为的应该拥有的结构体，如有更改或不妥可自行更改添加）
 //帖子类型
@@ -29,11 +30,11 @@ typedef enum{
     TYPE_OTHER//其他
 }posttype;
 
-//帖子状态
+//帖子状态 (updated)
 typedef enum{
     STATUS_ACTIVE=1,//进行中
     STATUS_FULL,//已满员
-    STATUS_EXPIED,//已过期
+    STATUS_EXPIRED,//已过期
     STATUS_HIDDEN//隐藏
 }poststatus;
 
@@ -65,13 +66,18 @@ typedef struct{
 
 //申请结构体
 typedef struct{
+    int postId;//帖子ID
+    char applicantId[max_ID];//申请人学号
     char contact[max_contact];
     char note[ex_max_remark];//申请者最大备注
     int approved;//是否同意：0.未处理。1.同意。2.拒绝
+    time_t applyTime;//申请时间
 }application;
 
 //==========函数声明========
 //这些函数会在各自的头文件中再次定义并实现，在此处声明是为了更好的让其他部分可以顺利调用这些函数
+//需要改动
+
 //A成员
 int userlogin(user *currentUser);//用户登录函数，并保存已登录过的用户数据
 void registerUser(void);//用户注册函数定义
@@ -85,5 +91,7 @@ void mainmenu(user *currentuser);//主菜单函数定义，这个我还没弄懂
 
 
 extern user currentUser;//意思：保存【当前已经登录的那个用户】的信息,也就是说这个已经登录过的用户信息在任何模块都可以被调用
+extern int applicationCount;//申请记录数量
+extern application applications[];//申请记录数组
 
 #endif
