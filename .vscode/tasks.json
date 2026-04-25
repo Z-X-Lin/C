@@ -4,22 +4,22 @@
         {
             "label": "【A】运行 join 模块",
             "type": "shell",
-            "command": "gcc -DTEST_JOIN_MODULE function/join/join.c -o test_join.exe && test_join.exe"
+            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_JOIN_MODULE function/join/join.c -o test_join.exe && test_join.exe"
         },
         {
             "label": "【B】运行 publish 模块",
             "type": "shell",
-            "command": "gcc -DTEST_PUBLISH_MODULE function/publish/publish.c -o test_publish.exe && test_publish.exe"
+            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_PUBLISH_MODULE function/publish/publish.c -o test_publish.exe && test_publish.exe"
         },
         {
             "label": "【C】运行 comment 模块",
             "type": "shell",
-            "command": "gcc -DTEST_COMMENT_MODULE function/comment/comment.c -o test_comment.exe && test_comment.exe"
+            "command": "gcc -I. -Icore -Idata -Ifunction -DTEST_COMMENT_MODULE function/comment/comment.c -o test_comment.exe && test_comment.exe"
         },
         {
             "label": "编译整个项目",
             "type": "shell",
-            "command": "gcc core/*.c data/*.c function/*/*.c main.c -o main.exe"
+            "command": "gcc -I. -Icore -Idata -Ifunction core/*.c data/*.c function/*/*.c main.c -o main.exe"
         },
         {
             "label": "运行整个项目",
@@ -35,14 +35,16 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-I${workspaceFolder}",
+                "-I${workspaceFolder}/core",
+                "-I${workspaceFolder}/data",
+                "-I${workspaceFolder}/function"
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
