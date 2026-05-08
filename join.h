@@ -7,7 +7,7 @@
 // Mock：测试模式开关 + 依赖替身
 #ifdef TEST_JOIN_MODULE  
 #define getUserId(id) 1
-#define getCurrentTime() "2025-12-25"
+#define getCurrentTime() "2026-4-27"
 #define saveApplicationData(a,b,c) 0
 #define loadApplicationData() 0
 #endif

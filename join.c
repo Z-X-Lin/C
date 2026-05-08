@@ -1,6 +1,6 @@
 
 /*#include "join.h"
-#include "../function/post/post.h"
+#include "post.h"
 
 // 申请记录数组 - 改为在common.c中定义
 // #define MAX_APPLICATIONS 100
