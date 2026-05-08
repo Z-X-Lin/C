@@ -1,14 +1,26 @@
-/*
 #include "post.h"
 
 // 帖子数组
-#define MAX_POSTS 100
-static post posts[MAX_POSTS];
-static int postCount = 0;
-static int nextPostId = 1;
+#define MAX_POSTS 1000
+static post posts[MAX_POSTS];//帖子“仓库”
+static int postCount = 0;//当前帖子数量
+static int nextPostId = 1;//帖子编号生成器
+
+void savePosts(void){
+    FILE *fp = fopen("data/posts.txt","w");
+    
+    if(fp == NULL){
+        printf("无法打开post.txt文件\n");
+        return;
+    }
+
+    printf("post.txt打开成功！\n");
+
+    fclose(fp);
+}
 
 // 帖子数据文件路径
-#define POSTS_FILE "data/posts.txt"
+/*#define POSTS_FILE "data/posts.txt"
 
 // 初始化帖子模块
 void initPostModule(void) {
@@ -222,12 +234,12 @@ void sortPostsByTime(post **posts, int count) {
             }
         }
     }
-}
-*/
+}*/
+
 
 
 //豆包版
-#include "post.h"
+/*#include "post.h"
 
 void postAdd() {
     clear();
@@ -263,4 +275,4 @@ void postListAll() {
                partners[i].status == 0 ? "可申请" : "已匹配");
     }
     pause();
-}
+}*/
