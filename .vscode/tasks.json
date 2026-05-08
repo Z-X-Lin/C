@@ -4,7 +4,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "D:\\MinGW\\bin\\gcc.exe",
+            "command": "gcc.exe",
             "args": [
                 "-g",
                 "main.c",
@@ -13,7 +13,7 @@
                 "post.c",
                 "join.c",
                 "-o",
-                "${workspaceFolder}\\campus_partner.exe",
+                "${workspaceFolder}\\solotogether.exe",
                 "-Wall",
                 "-Wextra"
             ],
@@ -29,7 +29,7 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "${workspaceFolder}\\campus_partner.exe",
+            "command": "${workspaceFolder}\\solotogether.exe",
             "dependsOn": "build",
             "group": {
                 "kind": "test",
@@ -56,7 +56,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe 生成活动文件",
-            "command": "D:\\mingw64\\bin\\gcc.exe",
+            "command": "gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
