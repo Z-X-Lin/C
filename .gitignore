@@ -20,7 +20,7 @@ CMakeCache.txt
 cmake_install.cmake
 
 # VS / CLion / VSCode
-
+.vscode/
 .idea/
 *.vcxproj*
 *.sln
