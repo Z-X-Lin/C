@@ -1,4 +1,4 @@
-/*
+
 #ifndef COMMON_H
 #define COMMON_H
 //1.2两行是头文件固定模板方案，编译头文件必须使用该定义，用处是防止头文件被重复包含，导致编译错误
@@ -95,11 +95,11 @@ extern user currentUser;//意思：保存【当前已经登录的那个用户】
 extern int applicationCount;//申请记录数量
 extern application applications[];//申请记录数组
 
-#endif*/
+#endif
 
 //豆包版
 // common.h 第一行添加
-#define __USE_MINGW_ANSI_STDIO 1
+/*#define __USE_MINGW_ANSI_STDIO 1
 #include <stdarg.h> // 补充va_list定义
 
 #ifndef COMMON_H
@@ -149,4 +149,4 @@ extern int nowUserId;
 void clear();
 void pause();
 
-#endif
+#endif*/

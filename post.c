@@ -6,6 +6,32 @@ static post posts[MAX_POSTS];//帖子“仓库”
 static int postCount = 0;//当前帖子数量
 static int nextPostId = 1;//帖子编号生成器
 
+void loadPosts(void){
+    postCount = 0;
+
+    FILE *fp = fopen("data/posts.txt","r");
+    
+    if(fp == NULL){
+        printf("无法打开post.txt文件\n");
+        return;
+    }
+    
+    while(fscanf(fp,
+           "%d|%[^|\n]\n", //%[^|\n]表示读取直到遇到|或换行的字符串停止
+           &posts[postCount].postId,
+           posts[postCount].title) == 2)
+    {
+        postCount++;
+    }
+    
+    for(int i = 0; i < postCount; i++){
+        printf("ID:%d\n", posts[i].postId);
+        printf("标题:%s\n", posts[i].title);
+    }
+
+     fclose(fp);
+}
+
 void savePosts(void){
     FILE *fp = fopen("data/posts.txt","w");
     
@@ -16,7 +42,21 @@ void savePosts(void){
 
     printf("post.txt打开成功！\n");
 
+    fprintf(fp,
+            "%d|%s\n",
+            posts[0].postId,
+            posts[0].title);
+    
     fclose(fp);
+}
+
+
+
+void testSave(void){
+    posts[0].postId = 1;
+    strcpy(posts[0].title,"东门拼车");
+    postCount = 1;
+    savePosts();
 }
 
 // 帖子数据文件路径

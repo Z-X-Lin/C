@@ -1,4 +1,4 @@
-/*
+
 #include "common.h"
 
 // 全局当前登录用户
@@ -164,11 +164,11 @@ void mainmenu(user *currentuser) {
                 printf("无效选择！\n");
         }
     }
-}*/
+}
 
 
 //豆包版
-#include "common.h"
+/*#include "common.h"
 
 User users[MAX_USER];
 Partner partners[MAX_PARTNER];
@@ -187,4 +187,4 @@ void pause() {
     printf("\n按回车继续...");
     getchar();
     getchar();
-}
+}*/
