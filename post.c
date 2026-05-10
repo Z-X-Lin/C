@@ -1,4 +1,4 @@
-/*#include "post.h"
+#include "post.h"
 
 #define POSTS_FILE "data/posts.txt"
 static int nextPostId = 1;
@@ -74,7 +74,7 @@ void savePosts(void){
     fclose(fp);
 }
 // 根据类型枚举值获取类型名称
-char* getTypeNameByValue(int type) {
+/*char* getTypeNameByValue(int type) {
     static char *typeNames[] = {
         "", "拼车", "拼单", "学习搭子", "运动搭子", "吃饭搭子", "旅游搭子", "其他"
     };
