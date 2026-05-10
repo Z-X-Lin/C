@@ -12,40 +12,67 @@ void loadPosts(void){
     FILE *fp = fopen("data/posts.txt","r");
     
     if(fp == NULL){
-        printf("无法打开post.txt文件\n");
+        printf("Failed to open the file post.txt\n");
         return;
     }
     
-    while(fscanf(fp,
-           "%d|%[^|\n]\n", //%[^|\n]表示读取直到遇到|或换行的字符串停止
+    while(fscanf(fp,"%d|%[^|\n]\n", //%[^|\n]表示读取直到遇到|或换行的字符串停止
            &posts[postCount].postId,
            posts[postCount].title) == 2)
     {
         postCount++;
+        if(posts[postCount - 1].postId >= nextPostId){
+            nextPostId = posts[postCount - 1].postId + 1;
+        }
     }
     
     for(int i = 0; i < postCount; i++){
         printf("ID:%d\n", posts[i].postId);
-        printf("标题:%s\n", posts[i].title);
+        printf("title:%s\n", posts[i].title);
     }
 
      fclose(fp);
 }
 
+void publishPost(void){
+    post newPost;
+
+    newPost.postId = nextPostId;//把当前编号给新帖子
+    nextPostId++;
+
+    printf("Input title: ");
+    scanf("%s", newPost.title);
+
+    printf("Input type(1-7): ");
+    scanf("%d", &newPost.type);
+
+    printf("Post ID:%d\n", newPost.postId);
+    printf("Title: %s\n", newPost.title);
+    printf("Type: %d\n", newPost.type);
+    
+    posts[postCount] = newPost;//把新帖子放到数组里
+    postCount++;
+
+    savePosts();//保存到文件
+
+    printf("Current Post Count: %d\n", postCount);
+}
+
 void savePosts(void){
-    FILE *fp = fopen("data/posts.txt","w");
+    FILE *fp = fopen("D:/C-programming-project/data/posts.txt","w");
     
     if(fp == NULL){
-        printf("无法打开post.txt文件\n");
+        printf("Failed to open the file post.txt\n");
         return;
     }
 
-    printf("post.txt打开成功！\n");
+    printf("post.txt opened successfully!\n");
 
-    fprintf(fp,
-            "%d|%s\n",
-            posts[0].postId,
-            posts[0].title);
+    for(int i = 0;i < postCount;i++){
+        fprintf(fp,"%d|%s\n",
+            posts[i].postId,
+            posts[i].title);
+    }
     
     fclose(fp);
 }

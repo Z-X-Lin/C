@@ -18,6 +18,7 @@ void showPostsByType(posttype type);//显示某种类型的帖子
 char* typeToString(posttype type);//根据类型枚举值返回类型名称字符串
 void sortPostsByTime(void);//按发布时间排序帖子（最新的在前）
 
+void publishPost(void);//发布帖子函数
 void testSave(void);//测试保存帖子的函数
 #endif
 
