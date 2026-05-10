@@ -1,4 +1,4 @@
-/*#ifndef POST_H
+#ifndef POST_H
 #define POST_H
 
 #include "common.h"
@@ -28,5 +28,5 @@ void postAdd();
 void postListAll();
 
 #endif
-*/
+
 

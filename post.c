@@ -1,7 +1,8 @@
 #include "post.h"
 
-#define POSTS_FILE "data/posts.txt"
-static int nextPostId = 1;
+post posts[MAX_POSTS];
+int postCount = 0;//帖子数组和计数器
+int nextPostId = 1;//下一个帖子ID
 
 void loadPosts(void){
     postCount = 0;
@@ -56,7 +57,7 @@ void publishPost(void){
 }
 
 void savePosts(void){
-    FILE *fp = fopen("D:/C-programming-project/data/posts.txt","w");
+    FILE *fp = fopen("data/posts.txt","w");
     
     if(fp == NULL){
         printf("Failed to open the file post.txt\n");
