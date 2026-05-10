@@ -6,6 +6,9 @@
 void joinApply(void);
 void joinMyList(void);
 void joinHandleApplications(void);
+void joinCancelApplication(void);
+void joinBatchHandle(void);
+void joinMyPublishedPosts(void);
 void loadApplications(void);
 void saveApplications(void);
 
