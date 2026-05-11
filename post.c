@@ -4,6 +4,30 @@ post posts[MAX_POSTS];
 int postCount = 0;//帖子数组和计数器
 int nextPostId = 1;//下一个帖子ID
 
+char* getTypeName(int type){
+    switch(type){
+        case 1:return "Carpool";
+        case 2:return "Group Buy";
+        case 3:return "Study";
+        case 4:return "Sports";
+        case 5:return "Meal";
+        case 6:return "Travel";
+        default:return "Other";
+    }
+}
+
+void sortPosts(void){
+    for(int i = 0; i < postCount - 1; i++){
+        for(int j = 0; j < postCount - i - 1; j++){
+            if(posts[j].postId > posts[j + 1].postId){
+                post temp = posts[j];
+                posts[j] = posts[j + 1];
+                posts[j + 1] = temp;
+            }
+        }
+    }
+}
+
 void loadPosts(void){
     postCount = 0;
 
@@ -14,9 +38,14 @@ void loadPosts(void){
         return;
     }
     
-    while(fscanf(fp,"%d|%[^|\n]\n", //%[^|\n]表示读取直到遇到|或换行的字符串停止
+    while(fscanf(fp,"%d|%[^|]|%d|%[^|\n]|%[^\n]|%lf|%[^\n]\n", //%[^|\n]表示读取直到遇到|或换行的字符串停止
            &posts[postCount].postId,
-           posts[postCount].title) == 2)
+           posts[postCount].title,
+           &posts[postCount].max_number,
+           posts[postCount].location,
+           posts[postCount].contact,
+           &posts[postCount].budget,
+           posts[postCount].remark) == 7)
     {
         postCount++;
         if(posts[postCount - 1].postId >= nextPostId){
@@ -27,6 +56,11 @@ void loadPosts(void){
     for(int i = 0; i < postCount; i++){
         printf("ID:%d\n", posts[i].postId);
         printf("title:%s\n", posts[i].title);
+        printf("Max Number:%d\n", posts[i].max_number);
+        printf("Location:%s\n", posts[i].location);
+        printf("Contact:%s\n", posts[i].contact);
+        printf("Budget:%.2f\n", posts[i].budget);
+        printf("Remark:%s\n", posts[i].remark);
     }
 
      fclose(fp);
@@ -44,10 +78,29 @@ void publishPost(void){
     printf("Input type(1-7): ");
     scanf("%d", &newPost.type);
 
+    printf("Input max number: ");
+    scanf("%d", &newPost.max_number);
+
+    printf("Input location:");
+    scanf("%s", newPost.location);
+
+    printf("Input contact:");
+    scanf("%s", newPost.contact);
+
+    printf("Input budget:");
+    scanf("%lf", &newPost.budget);
+
+    printf("Input remark:");
+    scanf("%s", newPost.remark);
+
     printf("Post ID:%d\n", newPost.postId);
     printf("Title: %s\n", newPost.title);
-    printf("Type: %d\n", newPost.type);
-    
+    printf("Type: %s\n", getTypeName(newPost.type));
+    printf("Max Number: %d\n", newPost.max_number);
+    printf("Location: %s\n", newPost.location);
+    printf("Contact: %s\n", newPost.contact);
+    printf("Budget: %.2f\n", newPost.budget);
+    printf("Remark: %s\n", newPost.remark);
     posts[postCount] = newPost;//把新帖子放到数组里
     postCount++;
 
@@ -67,12 +120,33 @@ void savePosts(void){
     printf("post.txt opened successfully!\n");
 
     for(int i = 0;i < postCount;i++){
-        fprintf(fp,"%d|%s\n",
+        fprintf(fp,"%d|%s|%d|%s|%s|%.2f|%s\n",
             posts[i].postId,
-            posts[i].title);
+            posts[i].title,
+            posts[i].max_number,
+            posts[i].location,
+            posts[i].contact,
+            posts[i].budget,
+            posts[i].remark);
     }
     
     fclose(fp);
+}
+
+void displayPost(void){
+    sortPosts();
+    for(int i = 0; i < postCount; i++){
+        printf("\n");
+        printf("Post ID:%d\n", posts[i].postId);
+        printf("Title:%s\n", posts[i].title);
+        printf("Type:%s\n", getTypeName(posts[i].type));
+        printf("Max Number:%d\n", posts[i].max_number);
+        printf("Location:%s\n", posts[i].location);
+        printf("Contact:%s\n", posts[i].contact);
+        printf("Budget:%.2f\n", posts[i].budget);
+        printf("Remark:%s\n", posts[i].remark);
+        printf("------------------------------\n");
+    }
 }
 // 根据类型枚举值获取类型名称
 /*char* getTypeNameByValue(int type) {
