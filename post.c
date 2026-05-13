@@ -19,7 +19,7 @@ char* getTypeName(int type){
 void sortPosts(void){
     for(int i = 0; i < postCount - 1; i++){
         for(int j = 0; j < postCount - i - 1; j++){
-            if(posts[j].postId > posts[j + 1].postId){
+            if(posts[j].postId < posts[j + 1].postId){
                 post temp = posts[j];
                 posts[j] = posts[j + 1];
                 posts[j + 1] = temp;
@@ -120,7 +120,7 @@ void savePosts(void){
     printf("post.txt opened successfully!\n");
 
     for(int i = 0;i < postCount;i++){
-        fprintf(fp,"%d|%s|%d|%s|%s|%.2f|%s\n",
+        fprintf(fp,"%d|%s|%d|%s|%s|%.2lf|%s\n",
             posts[i].postId,
             posts[i].title,
             posts[i].max_number,
@@ -147,6 +147,41 @@ void displayPost(void){
         printf("Remark:%s\n", posts[i].remark);
         printf("------------------------------\n");
     }
+}
+
+post* getPostById(int id){
+    for(int i = 0; i < postCount; i++){
+        if(posts[i].postId == id){
+            return &posts[i];//返回指向该帖子的指针
+        }
+    }
+    return NULL;
+}
+
+void updatePost(post *p){
+    savePosts();
+}
+
+void searchPost(void){
+    int id;
+    printf("Input Post ID:");
+    scanf("%d", &id);
+    post *p = getPostById(id);
+
+    if(p == NULL){
+        printf("Post not found!\n");
+        return;
+    }
+
+    printf("\n");
+    printf("Post ID:%d\n", p->postId);
+    printf("Title:%s\n", p->title);
+    printf("Type:%s\n", getTypeName(p->type));
+    printf("Max Number:%d\n", p->max_number);
+    printf("Location:%s\n", p->location);
+    printf("Contact:%s\n", p->contact);
+    printf("Budget:%.2f\n", p->budget);
+    printf("Remark:%s\n", p->remark);
 }
 // 根据类型枚举值获取类型名称
 /*char* getTypeNameByValue(int type) {
