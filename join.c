@@ -191,7 +191,7 @@ void ViewMyPublishedPosts(void) {
     for (int i = 0; i < postCount; i++) {
         if (strcmp(posts[i].publisherId, currentUser.ID) == 0) {
             found = 1;
-            char *typeName = getTypeNameByValue(posts[i].type);
+            char *typeName = getTypeName(posts[i].type);
             char statusStr[20];
             switch (posts[i].status) {
                 case STATUS_ACTIVE: strcpy(statusStr, "进行中"); break;
