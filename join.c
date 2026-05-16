@@ -4,13 +4,13 @@
 //加载
 void loadApplications(void) {
     //打开或创建新文件
-    FILE *fp = fopen(APPLICATIONS_FILE, "r");
+    FILE *fp = fopen(APPLICATIONS_FILE, "r");//只读
     if (!fp) {
         printf("申请文件不存在，将创建新文件\n");
         return;
     }
-    applicationCount = 0;
-    //输入并判断
+    applicationCount = 0;//初始申请数为零
+    //提交申请
     while (fscanf(fp, "%d %s %s %s %d %ld",
                   &applications[applicationCount].postId,
                   applications[applicationCount].applicantId,
@@ -24,7 +24,7 @@ void loadApplications(void) {
     fclose(fp);
     printf("已加载 %d 条申请记录\n", applicationCount);
 }
-//保存 
+//保存申请数据
 void saveApplications(void) {
     FILE *fp = fopen(APPLICATIONS_FILE, "w");
     if (!fp) {
@@ -42,8 +42,8 @@ void saveApplications(void) {
     }
     fclose(fp);
 }
-//申请
-void joinApply(void) {
+//创建我的申请
+void MyApply(void) {
     clear();//清屏
     printf("===== 申请搭子 =====\n");
     int postId;
@@ -86,7 +86,7 @@ void joinApply(void) {
         pause();
         return;
     }
-//创建新的
+//创建新的申请
     application newApp;
     newApp.postId = postId;
     strcpy(newApp.applicantId, currentUser.ID);
@@ -96,15 +96,16 @@ void joinApply(void) {
     scanf("%s", newApp.contact);
     printf("请输入申请备注: ");
     getchar();
-    fgets(newApp.note, sizeof(newApp.note), stdin);
-    newApp.note[strcspn(newApp.note, "\n")] = 0;
+    fgets(newApp.note, sizeof(newApp.note), stdin);//stdin：从键盘读取输入
+    newApp.note[strcspn(newApp.note, "\n")] = 0;//返回'\n',在note里的位置并替换为'\0'
+                                                //防止fgets读取'\n'
     applications[applicationCount++] = newApp;
     saveApplications();
     printf("申请成功！等待发布者审核\n");
     pause();
 }
-//查看
-void joinMyList(void) {
+//查看我的申请
+void MyList(void) {
     clear();
     printf("===== 我的申请 =====\n");
     int found = 0;
@@ -119,10 +120,10 @@ void joinMyList(void) {
             displayIdx++;
             post *p = getPostById(applications[i].postId);
             char *statusStr = "未处理";
+            //判断状态
             if (applications[i].approved == 1) statusStr = "已同意";
             else if (applications[i].approved == 2) statusStr = "已拒绝";
             else if (applications[i].approved == 3) statusStr = "已取消";
-
             printf("%-8d %-15s %-12s %-20s %-10s\n",
                    displayIdx,
                    p ? p->title : "未知",
@@ -136,12 +137,12 @@ void joinMyList(void) {
     }
     pause();
 }
-//取消
-void joinCancelApplication(void) {
+//取消我发出的申请
+void CancelApplication(void) {
     clear();
     printf("===== 取消申请 =====\n");
-    int displayList[MAX_APPLICATIONS];
-    int displayCount = 0;
+    int displayList[MAX_APPLICATIONS];//展示的最大数量为MAX_APPLICATIONS
+    int displayCount = 0;//初始数量为零
     for (int i = 0; i < applicationCount; i++) {
         if (strcmp(applications[i].applicantId, currentUser.ID) == 0 &&
             applications[i].approved == 0) {
@@ -179,8 +180,8 @@ void joinCancelApplication(void) {
     }
     pause();
 }
-//我发布的
-void joinMyPublishedPosts(void) {
+//查看我发布的搭子
+void ViewMyPublishedPosts(void) {
     clear();
     printf("===== 我发布的搭子 =====\n");
     int found = 0;
@@ -212,8 +213,8 @@ void joinMyPublishedPosts(void) {
     }
     pause();
 }
-//处理
-void joinHandleApplications(void) {
+//处理我得到的申请
+void HandleApplications(void) {
     clear();
     printf("===== 处理申请 =====\n");
     int myPostIds[MAX_POSTS];
@@ -224,7 +225,7 @@ void joinHandleApplications(void) {
         }
     }
     if (myPostCount == 0) {
-        printf("您还没有发布任何帖子\n");
+        printf("您还没有发布任何帖子，无申请\n");
         pause();
         return;
     }
@@ -281,11 +282,10 @@ void joinHandleApplications(void) {
     }
     pause();
 }
-//批量处理
-void joinBatchHandle(void) {
+//批量处理申请
+void BatchHandle(void) {
     clear();
     printf("===== 批量处理申请 =====\n");
-
     int myPostIds[MAX_POSTS];
     int myPostCount = 0;
     for (int i = 0; i < postCount; i++) {
@@ -293,16 +293,13 @@ void joinBatchHandle(void) {
             myPostIds[myPostCount++] = posts[i].postId;
         }
     }
-
     if (myPostCount == 0) {
-        printf("您还没有发布任何帖子\n");
+        printf("您还没有发布任何帖子，无申请\n");
         pause();
         return;
     }
-
     int appList[MAX_APPLICATIONS];
     int appCount = 0;
-
     for (int j = 0; j < myPostCount; j++) {
         int postId = myPostIds[j];
         for (int i = 0; i < applicationCount; i++) {
@@ -311,28 +308,24 @@ void joinBatchHandle(void) {
             }
         }
     }
-
     if (appCount == 0) {
         printf("暂无待处理的申请\n");
         pause();
         return;
     }
-
     printf("待处理申请数: %d\n", appCount);
     printf("1. 全部同意\n");
     printf("2. 全部拒绝\n");
     printf("0. 返回\n");
     printf("请选择: ");
-
     int choice;
     scanf("%d", &choice);
-
     if (choice == 1 || choice == 2) {
         int approved = choice;
         for (int k = 0; k < appCount; k++) {
             int idx = appList[k];
             applications[idx].approved = approved;
-
+            //更新数据
             if (approved == 1) {
                 post *p = getPostById(applications[idx].postId);
                 if (p) {
@@ -343,7 +336,6 @@ void joinBatchHandle(void) {
                 }
             }
         }
-
         if (approved == 1) {
             savePosts();
         }
